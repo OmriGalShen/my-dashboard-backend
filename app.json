@@ -1,0 +1,8 @@
+{
+  "name": "my-dashboard-backend",
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ]
+}
