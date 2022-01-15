@@ -3,15 +3,17 @@ My Dashboard is a simple dashboard application that shows current
 online users.
 
 ## What is this?  
-This is the backend portion of the project which supplies a simple rest api 
+This is the backend portion of the project which supplies a simple rest api  
+[Frontend repository](https://github.com/OmriGalShen/my-dashboard-frontend)
 
 ## Tools:
 - Sprint Boot (Java)
 - Maven
 - Postgress Database  
 
-## Live demo url:
-https://my-dashboard-backend.herokuapp.com
+## Live demo:
+[Backend live demo](https://my-dashboard-backend.herokuapp.com)  
+[Frontend live demo](https://my-dashboard-frontend.netlify.app/)  
 
 ## REST API:
 
