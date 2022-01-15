@@ -1,6 +1,6 @@
 package com.omrigal.mydashboardbackend.controller;
 
-import com.omrigal.mydashboardbackend.exception.ClientLoginRequestDenied;
+import com.omrigal.mydashboardbackend.exception.ClientLoginRequestDeniedException;
 import com.omrigal.mydashboardbackend.exception.ClientNotFoundException;
 import com.omrigal.mydashboardbackend.model.*;
 import com.omrigal.mydashboardbackend.repository.UsersRepository;
@@ -40,7 +40,7 @@ public class ClientController {
         String email = request.getEmail();
         Client client = repository.findByEmail(email).orElseThrow(() -> new ClientNotFoundException(email));
         if (!client.getPassword().equals(request.getPassword())) {
-            throw new ClientLoginRequestDenied("Incorrect password");
+            throw new ClientLoginRequestDeniedException("Incorrect password");
         }
         repository.loginClientById(client.getId(), new Date(System.currentTimeMillis()));
     }
