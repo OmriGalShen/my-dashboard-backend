@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins = {"https://localhost:4200/", "https://localhost:8080/","https://my-dashboard-frontend.netlify.app/"})
 public class ClientController {
     private final UsersRepository repository;
 
