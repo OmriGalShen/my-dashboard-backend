@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
 @Getter
@@ -18,14 +19,49 @@ import java.util.Objects;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name", length = 10, nullable = false)
-    private String name;
+    @Column(name = "username", length = 20, nullable = false)
+    private String username;
 
-    public Client(String name) {
-        this.name = name;
+    @Column(name = "password", length = 20, nullable = false)
+    private String password;
+
+    @Column(name = "email", length = 20, nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "is_online")
+    private Boolean isOnline = false;
+
+    @Column(name = "login_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date loginTime;
+
+    @Column(name = "last_updated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdated;
+
+    @Column(name = "ip", length = 20, nullable = false)
+    private String ip;
+
+    @Column(name = "register_time", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registerTime;
+
+    @Column(name = "login_count", nullable = false)
+    private Long loginCount;
+
+    public Client(ClientRegisterRequest request) {
+        this.username = request.getUsername();
+        this.password = request.getPassword();
+        this.email = request.getEmail();
+        Date currentTime = new Date(System.currentTimeMillis());
+        this.lastUpdated = currentTime;
+        this.ip = request.getIp();
+        this.registerTime = currentTime;
+        this.loginCount = 0L;
+        this.isOnline = false;
     }
 
     @Override
