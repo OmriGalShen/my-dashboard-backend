@@ -29,7 +29,7 @@ https://my-dashboard-backend.herokuapp.com
 
 | Description | Request type  |Request Format | Body Format |Result Format |
 | :---:   | :-: | :-: | :-: | :-: |
-| login a client | POST  |"/login-client"| {email:string, password:String} |Raise error if login failed  |
+| login a client | POST  |"/login-client"| {email:string, password:String} |{email:string,username:string,password:string}  |
 
 | Description | Request type  |Request Format | Body Format |Result Format |
 | :---:   | :-: | :-: | :-: | :-: |
