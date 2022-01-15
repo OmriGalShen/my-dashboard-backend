@@ -19,30 +19,31 @@ public class ClientController {
     }
 
     @GetMapping("/online-clients")
-    List<OnlineClient> all() {
-        return repository.findAllOnlineClients().stream().map(OnlineClient::new).collect(Collectors.toList());
+    List<OnlineClientResponse> all() {
+        return repository.findAllOnlineClients().stream().map(OnlineClientResponse::new).collect(Collectors.toList());
     }
 
     @GetMapping("/client-details/{username}")
-    ClientDetails one(@PathVariable String username) {
+    ClientDetailsResponse one(@PathVariable String username) {
         Client client = repository.findByUsername(username).orElseThrow(() -> new ClientNotFoundException(username));
-        return new ClientDetails(client);
+        return new ClientDetailsResponse(client);
     }
 
     @PostMapping("/register-client")
-    ClientDetails newClient(@RequestBody ClientRegisterRequest newClient) {
+    ClientDetailsResponse newClient(@RequestBody ClientRegisterRequest newClient) {
         Client client = repository.save(new Client(newClient));
-        return new ClientDetails(client);
+        return new ClientDetailsResponse(client);
     }
 
     @PostMapping("/login-client")
-    void login(@RequestBody ClientLoginRequest request) {
+    ClientLoginResponse login(@RequestBody ClientLoginRequest request) {
         String email = request.getEmail();
         Client client = repository.findByEmail(email).orElseThrow(() -> new ClientNotFoundException(email));
         if (!client.getPassword().equals(request.getPassword())) {
             throw new ClientLoginRequestDeniedException("Incorrect password");
         }
         repository.loginClientById(client.getId(), new Date(System.currentTimeMillis()));
+        return new ClientLoginResponse(client);
     }
 
     @PostMapping("/logout-client/{username}")
