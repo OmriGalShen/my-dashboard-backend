@@ -1,12 +1,15 @@
 package com.omrigal.mydashboardbackend.config;
 
 import com.omrigal.mydashboardbackend.model.Client;
+import com.omrigal.mydashboardbackend.model.ClientRegisterRequest;
 import com.omrigal.mydashboardbackend.repository.UsersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Date;
 
 @Configuration
 public class LoadDatabase {
@@ -17,8 +20,13 @@ public class LoadDatabase {
 
         return args -> {
             repository.deleteAll();
-            log.info("Preloading " + repository.save(new Client("Omri1")));
-            log.info("Preloading " + repository.save(new Client("Omri2")));
+            for (int i = 0; i < 4; i++) {
+                ClientRegisterRequest request =  new ClientRegisterRequest("dummy" + i, "1234", "dummy" + i + "@gmail.com", "localhost");
+                Client c = new Client(request);
+                c.setIsOnline(true);
+                c.setLoginTime(new Date(System.currentTimeMillis()));
+                log.info("Preloading " + repository.save(c));
+            }
         };
     }
 }
