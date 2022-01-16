@@ -33,9 +33,12 @@ public class ClientController {
     }
 
     @PostMapping("/register-client")
-    ClientLoginResponse newClient(@RequestBody ClientRegisterRequest newClient) {
-        Client client = repository.save(new Client(newClient));
-        return new ClientLoginResponse(client);
+    ClientLoginResponse newClient(@RequestBody ClientRegisterRequest newClient,HttpServletRequest httpRequest) {
+        Client client = new Client(newClient);
+        String clientIP = ConnectionHelper.getClientIp(httpRequest);
+        client.setIp(clientIP);
+        Client resClient = repository.save(client);
+        return new ClientLoginResponse(resClient);
     }
 
     @PostMapping("/login-client")
