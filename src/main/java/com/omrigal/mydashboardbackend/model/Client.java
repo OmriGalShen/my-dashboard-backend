@@ -42,7 +42,7 @@ public class Client {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdated;
 
-    @Column(name = "ip", length = 20, nullable = false)
+    @Column(name = "ip", length = 20)
     private String ip;
 
     @Column(name = "register_time", nullable = false)
@@ -58,7 +58,6 @@ public class Client {
         this.email = request.getEmail();
         Date currentTime = new Date(System.currentTimeMillis());
         this.lastUpdated = currentTime;
-        this.ip = request.getIp();
         this.registerTime = currentTime;
         this.loginCount = 0L;
         this.isOnline = false;

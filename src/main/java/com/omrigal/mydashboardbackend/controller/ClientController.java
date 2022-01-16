@@ -4,8 +4,10 @@ import com.omrigal.mydashboardbackend.exception.ClientLoginRequestDeniedExceptio
 import com.omrigal.mydashboardbackend.exception.ClientNotFoundException;
 import com.omrigal.mydashboardbackend.model.*;
 import com.omrigal.mydashboardbackend.repository.UsersRepository;
+import com.omrigal.mydashboardbackend.util.ConnectionHelper;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,19 +33,20 @@ public class ClientController {
     }
 
     @PostMapping("/register-client")
-    ClientDetailsResponse newClient(@RequestBody ClientRegisterRequest newClient) {
+    ClientLoginResponse newClient(@RequestBody ClientRegisterRequest newClient) {
         Client client = repository.save(new Client(newClient));
-        return new ClientDetailsResponse(client);
+        return new ClientLoginResponse(client);
     }
 
     @PostMapping("/login-client")
-    ClientLoginResponse login(@RequestBody ClientLoginRequest request) {
+    ClientLoginResponse login(@RequestBody ClientLoginRequest request, HttpServletRequest httpRequest) {
         String email = request.getEmail();
         Client client = repository.findByEmail(email).orElseThrow(() -> new ClientNotFoundException(email));
         if (!client.getPassword().equals(request.getPassword())) {
             throw new ClientLoginRequestDeniedException("Incorrect password");
         }
-        repository.loginClientById(client.getId(), new Date(System.currentTimeMillis()));
+        String clientIP = ConnectionHelper.getClientIp(httpRequest);
+        repository.loginClientById(client.getId(), new Date(System.currentTimeMillis()),clientIP);
         return new ClientLoginResponse(client);
     }
 

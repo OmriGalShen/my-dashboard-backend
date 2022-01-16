@@ -26,7 +26,7 @@ public interface UsersRepository extends JpaRepository<Client, Long> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Client c set c.isOnline = true, c.loginCount = c.loginCount + 1,c.loginTime = :now,c.lastUpdated=:now WHERE c.id = :id")
-    void loginClientById(@Param("id") Long id, @Param("now") Date now);
+    @Query("UPDATE Client c set c.isOnline = true, c.loginCount = c.loginCount + 1,c.loginTime = :now,c.lastUpdated=:now,c.ip=:ip WHERE c.id = :id")
+    void loginClientById(@Param("id") Long id, @Param("now") Date now,@Param("ip") String clientIP);
 
 }
