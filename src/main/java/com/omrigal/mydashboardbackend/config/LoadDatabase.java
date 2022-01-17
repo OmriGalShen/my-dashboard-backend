@@ -20,7 +20,7 @@ public class LoadDatabase {
 
         return args -> {
             repository.deleteAll();
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 12; i++) {
                 ClientRegisterRequest request = new ClientRegisterRequest("dummy" + i, "1234", "dummy" + i + "@gmail.com");
                 Client c = new Client(request);
                 c.setIsOnline(true);
