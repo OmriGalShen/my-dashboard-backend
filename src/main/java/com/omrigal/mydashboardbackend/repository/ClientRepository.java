@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsersRepository extends JpaRepository<Client, Long> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findByUsername(String username);
 
     Optional<Client> findByEmail(String email);

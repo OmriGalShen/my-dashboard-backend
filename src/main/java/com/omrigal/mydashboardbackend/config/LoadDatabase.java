@@ -2,7 +2,7 @@ package com.omrigal.mydashboardbackend.config;
 
 import com.omrigal.mydashboardbackend.model.Client;
 import com.omrigal.mydashboardbackend.model.ClientRegisterRequest;
-import com.omrigal.mydashboardbackend.repository.UsersRepository;
+import com.omrigal.mydashboardbackend.repository.ClientRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +16,7 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(UsersRepository repository) {
+    CommandLineRunner initDatabase(ClientRepository repository) {
 
         return args -> {
             repository.deleteAll();

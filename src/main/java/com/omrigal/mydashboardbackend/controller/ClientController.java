@@ -3,7 +3,7 @@ package com.omrigal.mydashboardbackend.controller;
 import com.omrigal.mydashboardbackend.exception.ClientLoginRequestDeniedException;
 import com.omrigal.mydashboardbackend.exception.ClientNotFoundException;
 import com.omrigal.mydashboardbackend.model.*;
-import com.omrigal.mydashboardbackend.repository.UsersRepository;
+import com.omrigal.mydashboardbackend.repository.ClientRepository;
 import com.omrigal.mydashboardbackend.util.ConnectionHelper;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin(origins = {"https://localhost:4200/", "https://localhost:8080/","https://my-dashboard-frontend.netlify.app/"})
 public class ClientController {
-    private final UsersRepository repository;
+    private final ClientRepository repository;
 
-    public ClientController(UsersRepository repository) {
+    public ClientController(ClientRepository repository) {
         this.repository = repository;
     }
 
